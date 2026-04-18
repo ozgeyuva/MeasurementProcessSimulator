@@ -5,7 +5,7 @@ import java.util.List;
 public class Dimension {
     private String name;
     private int coefficient;
-    private List<model.Metric> metrics;
+    private List<Metric> metrics;
 
     public Dimension(String name, int coefficient) {
         this.name = name;
@@ -15,7 +15,6 @@ public class Dimension {
     public void addMetric(Metric metric) {
         metrics.add(metric);
     }
-
     public double calculateScore() {
         double total = 0;
         int sumCoeff = 0;

@@ -51,8 +51,15 @@ public class ScenarioRepository {
         List<Dimension> dims = new ArrayList<>();
 
         Dimension usability = new Dimension("Usability", 25);
-        usability.addMetric(new Metric("Doctor UI Score", 50, "Higher", 0, 100, "points"));
-        usability.addMetric(new Metric("Registration Time", 50, "Lower", 0, 30, "min"));
+
+        Metric m1 = new Metric("Doctor UI Score", 50, "Higher", 0, 100, "points");
+        m1.setValue(84);
+
+        Metric m2 = new Metric("Registration Time", 50, "Lower", 0, 30, "min");
+        m2.setValue(9);
+
+        usability.addMetric(m1);
+        usability.addMetric(m2);
 
         dims.add(usability);
 
