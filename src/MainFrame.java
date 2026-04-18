@@ -7,7 +7,7 @@ public class MainFrame extends JFrame {
     private JPanel mainPanel;
     private List<Dimension> dimensions;
     private UserProfile userProfile;
-
+    private StepIndicatorPanel stepIndicatorPanel;
     private AppController controller;
 
     public MainFrame(AppController controller) {
@@ -18,6 +18,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        setLayout(new BorderLayout());
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
@@ -27,6 +28,10 @@ public class MainFrame extends JFrame {
         mainPanel.add(new Step4Panel(this), "step4");
         mainPanel.add(new Step5Panel(this), "step5");
 
+        stepIndicatorPanel = new StepIndicatorPanel();
+        add(stepIndicatorPanel, BorderLayout.NORTH);
+
+        add(mainPanel, BorderLayout.CENTER);
         add(mainPanel);
     }
 

@@ -5,6 +5,7 @@ import java.util.List;
 public class Step5Panel extends JPanel {
     private JPanel resultPanel;
     private MainFrame frame;
+    private RadarChartPanel radarChartPanel;
 
     public Step5Panel(MainFrame frame) {
         this.frame = frame;
@@ -17,6 +18,8 @@ public class Step5Panel extends JPanel {
 
         resultPanel = new JPanel();
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
+
+        radarChartPanel = new RadarChartPanel();
 
         JScrollPane scrollPane = new JScrollPane(resultPanel);
         add(scrollPane, BorderLayout.CENTER);
@@ -74,6 +77,10 @@ public class Step5Panel extends JPanel {
         resultPanel.add(new JLabel("Gap Value: " + String.format("%.2f", gapValue)));
         resultPanel.add(new JLabel("Quality Level: " + qualityLevel));
         resultPanel.add(new JLabel("This dimension has the lowest score and requires the most improvement."));
+
+        radarChartPanel.setDimensions(dimensions);
+        resultPanel.add(new JLabel("Radar Chart"));
+        resultPanel.add(radarChartPanel);
 
         resultPanel.revalidate();
         resultPanel.repaint();
