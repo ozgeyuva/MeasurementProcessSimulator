@@ -7,14 +7,14 @@ public class Metric {
     private String unit;
     private double value;
 
-    public Metric(String name, int coefficient, String direction, int min, int max, String unit, double value) {
+    public Metric(String name, int coefficient, String direction, int min, int max, String unit) {
         this.name = name;
         this.coefficient = coefficient;
         this.direction = direction;
         this.min = min;
         this.max = max;
         this.unit = unit;
-        this.value = value;
+        this.value = 0;
     }
     public double calculateScore() {
         double score;
@@ -31,8 +31,8 @@ public class Metric {
     public String getName() {return name;}
     public int getCoefficient() {return coefficient;}
     public String getDirection() {return direction;}
-    public int getMin() {return min;}
-    public int getMax() {return max;}
+    public double getMin() {return min;}
+    public double getMax() {return max;}
     public String getUnit() {return unit;}
     public double getValue() {return value;}
     public void setValue(double value) {this.value = value;}

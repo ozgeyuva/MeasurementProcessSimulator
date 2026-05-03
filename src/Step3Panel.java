@@ -1,9 +1,14 @@
+import model.Dimension;
+import model.Metric;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.util.List;
 
 public class Step3Panel extends JPanel {
+
     private JTable table;
     private MainFrame frame;
 
@@ -17,14 +22,13 @@ public class Step3Panel extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
 
         table = new JTable();
-        JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane, BorderLayout.CENTER);
+        add(new JScrollPane(table), BorderLayout.CENTER);
 
         JPanel bottomPanel = new JPanel();
 
         JButton backButton = new JButton("Back");
-        JButton nextButton = new JButton("Next");
         JButton loadButton = new JButton("Load Data");
+        JButton nextButton = new JButton("Next");
 
         bottomPanel.add(backButton);
         bottomPanel.add(loadButton);
@@ -39,24 +43,29 @@ public class Step3Panel extends JPanel {
 
     public void loadData() {
         String[] columns = {"Metric", "Coefficient", "Direction", "Range", "Unit"};
-        DefaultTableModel model = new DefaultTableModel(columns, 0);
+
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
         List<Dimension> dimensions = frame.getDimensions();
 
         if (dimensions != null) {
-            for (Dimension dimension : dimensions) {
-                for (Metric metric : dimension.getMetrics()) {
-                    Object[] row = {
-                            metric.getName(),
-                            metric.getCoefficient(),
-                            metric.getDirection(),
-                            metric.getMin() + " - " + metric.getMax(),
-                            metric.getUnit()
-                    };
-                    model.addRow(row);
+            for (Dimension d : dimensions) {
+                for (Metric m : d.getMetrics()) {
+                    model.addRow(new Object[]{
+                            m.getName(),
+                            m.getCoefficient(),
+                            m.getDirection(),
+                            m.getMin() + " - " + m.getMax(),
+                            m.getUnit()
+                    });
                 }
             }
         }
+
         table.setModel(model);
     }
 }

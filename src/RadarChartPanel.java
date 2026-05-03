@@ -1,5 +1,10 @@
+import model.Dimension;
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Polygon;
+import java.awt.Color;
 import java.awt.geom.Path2D;
 import java.util.List;
 
@@ -7,16 +12,10 @@ public class RadarChartPanel extends JPanel {
 
     private List<Dimension> dimensions;
 
-    public RadarChartPanel() {
-        setPreferredSize(new Dimension(400, 400));
-        setBackground(Color.WHITE);
-    }
-
     public void setDimensions(List<Dimension> dimensions) {
         this.dimensions = dimensions;
         repaint();
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -1,11 +1,14 @@
+import model.Dimension;
 import model.Metric;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.util.List;
 
 public class Step4Panel extends JPanel {
+
     private JTable table;
     private MainFrame frame;
 
@@ -14,49 +17,48 @@ public class Step4Panel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Step 4 - Collect Data", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        add(titleLabel, BorderLayout.NORTH);
+        JLabel title = new JLabel("Step 4 - Collect Data", SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 18));
+        add(title, BorderLayout.NORTH);
 
         table = new JTable();
-        JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane, BorderLayout.CENTER);
+        add(new JScrollPane(table), BorderLayout.CENTER);
 
-        JPanel bottomPanel = new JPanel();
+        JPanel bottom = new JPanel();
 
-        JButton backButton = new JButton("Back");
-        JButton loadButton = new JButton("Calculate Scores");
-        JButton nextButton = new JButton("Next");
+        JButton back = new JButton("Back");
+        JButton calc = new JButton("Calculate Scores");
+        JButton next = new JButton("Next");
 
-        bottomPanel.add(backButton);
-        bottomPanel.add(loadButton);
-        bottomPanel.add(nextButton);
+        bottom.add(back);
+        bottom.add(calc);
+        bottom.add(next);
 
-        add(bottomPanel, BorderLayout.SOUTH);
+        add(bottom, BorderLayout.SOUTH);
 
-        backButton.addActionListener(e -> frame.next("step3"));
-        loadButton.addActionListener(e -> calculateScores());
-        nextButton.addActionListener(e -> frame.next("step5"));
+        back.addActionListener(e -> frame.next("step3"));
+        calc.addActionListener(e -> calculateScores());
+        next.addActionListener(e -> frame.next("step5"));
     }
 
-    public void calculateScores() {
-        String[] columns = {"Metric", "Direction", "Range", "Value", "Score", "Coeff / Unit"};
-        DefaultTableModel model = new DefaultTableModel(columns, 0);
+    void calculateScores() {
+        String[] cols = {"Metric", "Direction", "Range", "Value", "Score", "Coeff / Unit"};
 
-        List<Dimension> dimensions = frame.getDimensions();
+        DefaultTableModel model = new DefaultTableModel(cols, 0);
 
-        if (dimensions != null) {
-            for (Dimension dimension : dimensions) {
-                for (Metric metric : dimension.getMetrics()) {
-                    Object[] row = {
-                            metric.getName(),
-                            metric.getDirection(),
-                            metric.getMin() + " - " + metric.getMax(),
-                            metric.getValue(),
-                            metric.calculateScore(),
-                            metric.getCoefficient() + " / " + metric.getUnit()
-                    };
-                    model.addRow(row);
+        List<Dimension> dims = frame.getDimensions();
+
+        if (dims != null) {
+            for (Dimension d : dims) {
+                for (Metric m : d.getMetrics()) {
+                    model.addRow(new Object[]{
+                            m.getName(),
+                            m.getDirection(),
+                            m.getMin() + " - " + m.getMax(),
+                            m.getValue(),
+                            m.calculateScore(),
+                            m.getCoefficient() + " / " + m.getUnit()
+                    });
                 }
             }
         }

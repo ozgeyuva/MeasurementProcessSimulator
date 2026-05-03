@@ -1,7 +1,9 @@
 package model;
+
 import java.util.*;
 
 public class ScenarioRepository {
+
     private static Map<String, List<String>> scenarios = new HashMap<>();
 
     static {
@@ -19,8 +21,8 @@ public class ScenarioRepository {
     public static List<String> getScenarioNames(String mode) {
         return scenarios.getOrDefault(mode, new ArrayList<>());
     }
-    public static List<Dimension> getScenario(String qualityType, String mode, String scenarioName) {
 
+    public static List<Dimension> getScenario(String qualityType, String mode, String scenarioName) {
         if (mode.equals("Education")) {
             return buildEducationScenario();
         } else {
@@ -33,12 +35,26 @@ public class ScenarioRepository {
         List<Dimension> dims = new ArrayList<>();
 
         Dimension usability = new Dimension("Usability", 25);
-        usability.addMetric(new Metric("SUS Score", 50, "Higher", 0, 100, "points"));
-        usability.addMetric(new Metric("Onboarding Time", 50, "Lower", 0, 60, "min"));
+
+        Metric m1 = new Metric("SUS Score", 50, "Higher", 0, 100, "points");
+        m1.setValue(89);
+
+        Metric m2 = new Metric("Onboarding Time", 50, "Lower", 0, 60, "min");
+        m2.setValue(5);
+
+        usability.addMetric(m1);
+        usability.addMetric(m2);
 
         Dimension performance = new Dimension("Performance", 20);
-        performance.addMetric(new Metric("Video Start Time", 50, "Lower", 0, 15, "sec"));
-        performance.addMetric(new Metric("Concurrent Exams", 50, "Higher", 0, 600, "users"));
+
+        Metric m3 = new Metric("Video Start Time", 50, "Lower", 0, 15, "sec");
+        m3.setValue(4);
+
+        Metric m4 = new Metric("Concurrent Exams", 50, "Higher", 0, 600, "users");
+        m4.setValue(510);
+
+        performance.addMetric(m3);
+        performance.addMetric(m4);
 
         dims.add(usability);
         dims.add(performance);
@@ -66,4 +82,3 @@ public class ScenarioRepository {
         return dims;
     }
 }
-

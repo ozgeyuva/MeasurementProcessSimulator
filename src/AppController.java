@@ -1,3 +1,6 @@
+import model.Dimension;
+import model.ScenarioRepository;
+
 public class AppController {
     private MainFrame frame;
 

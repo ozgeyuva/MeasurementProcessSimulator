@@ -1,17 +1,20 @@
+import model.UserProfile;
+
 import javax.swing.*;
 import java.awt.*;
 
-import static java.awt.AWTEventMulticaster.add;
-
 public class Step1Panel extends JPanel {
+
     private JTextField userNameField;
     private JTextField schoolField;
     private JTextField sessionField;
 
     private MainFrame frame;
+
     public Step1Panel(MainFrame frame) {
-        MainFrame frame;
-        setLayout(new GridLayout(4, 2));
+        this.frame = frame;
+
+        setLayout(new GridLayout(4, 2, 10, 10));
 
         add(new JLabel("Username:"));
         userNameField = new JTextField();
@@ -25,23 +28,44 @@ public class Step1Panel extends JPanel {
         sessionField = new JTextField();
         add(sessionField);
 
+        add(new JLabel(""));
+
         JButton nextButton = new JButton("Next");
         nextButton.addActionListener(e -> goNext());
         add(nextButton);
     }
-    public void goNext() {
-        String userName = userNameField.getText();
-        String school = schoolField.getText();
-        String session = sessionField.getText();
-        if (userName.isEmpty() || school.isEmpty() || session.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill all the fields");
+
+    private void goNext() {
+        String userName = userNameField.getText().trim();
+        String school = schoolField.getText().trim();
+        String sessionName = sessionField.getText().trim();
+
+        if (!validateInput()) {
             return;
         }
-        UserProfile profile = new UserProfile(userName, school, session);
-        frame.setUserProfile(profile);
-        frame.next("step2");
 
+        UserProfile profile = new UserProfile(userName, school, sessionName);
+        frame.setUserProfile(profile);
+
+        frame.next("step2");
     }
 
+    public boolean validateInput() {
+        if (userNameField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your username to continue.");
+            return false;
+        }
 
+        if (schoolField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your school to continue.");
+            return false;
+        }
+
+        if (sessionField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your session name to continue.");
+            return false;
+        }
+
+        return true;
+    }
 }

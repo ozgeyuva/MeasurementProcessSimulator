@@ -1,6 +1,8 @@
+import model.ScenarioRepository;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+
 public class Step2Panel extends JPanel {
     private JRadioButton productBtn;
     private JRadioButton processBtn;

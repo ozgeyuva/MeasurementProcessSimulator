@@ -20,10 +20,10 @@ public class StepIndicatorPanel extends JPanel {
         for (int i = 0; i < labels.length; i++) {
             if (i + 1 < activeStep) {
                 labels[i].setText("✓ " + stepNames[i]);
-                labels[i].setBackground(new Color(144, 238, 144)); // açık yeşil
+                labels[i].setBackground(new Color(144, 238, 144));
             } else if (i + 1 == activeStep) {
                 labels[i].setText((i + 1) + ". " + stepNames[i]);
-                labels[i].setBackground(new Color(173, 216, 230)); // açık mavi
+                labels[i].setBackground(new Color(173, 216, 230));
             } else {
                 labels[i].setText((i + 1) + ". " + stepNames[i]);
                 labels[i].setBackground(Color.LIGHT_GRAY);

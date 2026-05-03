@@ -1,3 +1,4 @@
+package model;
 public class UserProfile {
     private String username;
     private String school;
