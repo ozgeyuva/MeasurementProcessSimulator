@@ -31,3 +31,6 @@ screenshots/5.png
 Additional Files:
 - classdiagram.pdf
 - source code files under src/
+- activity diagram1.png
+- activity diagram 2.png
+- use case diagram.png
